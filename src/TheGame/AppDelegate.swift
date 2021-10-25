@@ -10,6 +10,7 @@ import MetalKit
 
 let WIDTH  = 800
 let HEIGHT = 600
+var deg = Float(-55.0)
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var mWindow: NSWindow?

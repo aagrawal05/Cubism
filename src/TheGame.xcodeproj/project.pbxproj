@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8126458327257C410074FE70 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 8126458227257C410074FE70 /* include */; };
 		81B5012026FCAE4F003DCAC4 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 81B5011F26FCAE4F003DCAC4 /* Shader.metal */; };
 		81B5012226FCAEF8003DCAC4 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B5012126FCAEF8003DCAC4 /* Renderer.swift */; };
 		81DED96926FB802000EAFE5F /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DED96726FB802000EAFE5F /* WindowController.swift */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8126458227257C410074FE70 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		8126458527257CD00074FE70 /* cglm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cglm; path = include/cglm; sourceTree = "<group>"; };
 		81B5011F26FCAE4F003DCAC4 /* Shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
 		81B5012126FCAEF8003DCAC4 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		81DED96726FB802000EAFE5F /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
@@ -42,11 +45,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8126458427257CD00074FE70 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8126458527257CD00074FE70 /* cglm */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		81F806CA26F16AFA0090649D = {
 			isa = PBXGroup;
 			children = (
+				8126458227257C410074FE70 /* include */,
 				81F806D526F16AFA0090649D /* TheGame */,
 				81F806D426F16AFA0090649D /* Products */,
+				8126458427257CD00074FE70 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81F806DB26F16AFC0090649D /* Assets.xcassets in Resources */,
+				8126458327257C410074FE70 /* include in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,13 +296,16 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 69UZH4NT2L;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
 				INFOPLIST_FILE = TheGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MODULEMAP_FILE = /Users/adityaagrawal/VoxelEngine/src/include/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boomer.TheGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/include/cglm\"";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -304,13 +321,16 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 69UZH4NT2L;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
 				INFOPLIST_FILE = TheGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MODULEMAP_FILE = /Users/adityaagrawal/VoxelEngine/src/include/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boomer.TheGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/include/cglm\"";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

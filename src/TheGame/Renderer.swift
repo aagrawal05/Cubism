@@ -6,38 +6,120 @@
 //
 
 import MetalKit
+import cglm
+
+let NUM_VOXELS = 100
+
+/*struct instanceUniform {
+    var model: mat4
+    var color: vec3
+}*/
 
 struct Vertex {
-    var position: vector_float2
-    var color: vector_float4
-    static var size = MemoryLayout<vector_float2>.size + MemoryLayout<vector_float4>.size
+    var position: vec3
+    //TODO --> Normal
+    var color: vec4
 }
 
-let VERTEX_DATA: [Vertex] =
-[
-    // v0
-    Vertex(position: vector_float2(250, -250),
-           color: vector_float4(1, 0, 0, 1)),
-    // v1
-    Vertex(position: vector_float2(-250, -250),
-           color: vector_float4(0, 1, 0, 1)),
-    // v2
-    Vertex(position: vector_float2(0, 250),
-           color: vector_float4(0, 0, 1, 1)),
+/*struct Voxel {
+    //var isEmpty: Bool
+    var color: vec3
     
+}
+struct VoxelMesh {
+    var x, y, z : Int
+    var s : Float
+    var Voxels: [Voxel]
+}*/
+
+let Cube: [Vertex] =
+[
+    Vertex(position: vec3(-0.5, -0.5, 0), color: vec4(1, 1, 1, 1)), //Bottom
+    Vertex(position: vec3(-0.5, 0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, 0), color: vec4(1, 1, 1, 1)),
+    
+    Vertex(position: vec3(-0.5, -0.5, 0), color: vec4(1, 1, 1, 1)), //Back
+    Vertex(position: vec3(0.5, -0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, 0), color: vec4(1, 1, 1, 1)),
+    
+    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)), //Top
+    Vertex(position: vec3(-0.5, 0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    
+    Vertex(position: vec3(-0.5, 0.5, 0), color: vec4(1, 1, 1, 1)), //Back
+    Vertex(position: vec3(0.5, 0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, 0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, 0.5, 0), color: vec4(1, 1, 1, 1)),
+    
+    Vertex(position: vec3(-0.5, 0.5, 0), color: vec4(1, 1, 1, 1)), //Left
+    Vertex(position: vec3(-0.5, -0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, 0.5, -0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(-0.5, 0.5, 0), color: vec4(1, 1, 1, 1)),
+    
+    Vertex(position: vec3(0.5, 0.5, 0), color: vec4(1, 1, 1, 1)), //Right
+    Vertex(position: vec3(0.5, -0.5, 0), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, -0.5), color: vec4(1, 1, 1, 1)),
+    Vertex(position: vec3(0.5, 0.5, 0), color: vec4(1, 1, 1, 1)),
 ]
+
+//var instanceUniforms: [instanceUniform] = Array(repeating: instanceUniform(model: glms_mat4_identity().raw, color: vec3(1.0, 1.0, 1.0)), count: NUM_VOXELS*NUM_VOXELS*NUM_VOXELS)
 
 class Renderer : NSObject
 {
-    public  var mView:         MTKView
-    private var mViewportSize: vector_uint2
-    private let mPipeline:     MTLRenderPipelineState
-    private let mCommandQueue: MTLCommandQueue
+    public  var mView:             MTKView
+    private var mViewportSize:     vector_uint2
+    private let mPipeline:         MTLRenderPipelineState
+    private let mCommandQueue:     MTLCommandQueue
+    private let mModelMatrix:      mat4s
+    private let mViewMatrix:       mat4s
+    private let mWorldMatrix:      mat4s
+    private let mProjectionMatrix: mat4s
+    private var mVPMatrix:         mat4s
     
+    //private let mVoxelMesh:        VoxelMesh
     public init(view: MTKView)
     {
+        
         mView = view
 
+        //Init Matricies
+        mModelMatrix = glms_rotate(glms_mat4_identity(), glm_rad(-55), vec3s(raw: (1.0, 0.0, 0.0)))
+        mViewMatrix = glms_translate(glms_mat4_identity(), vec3s(raw: (0.0, 0.0, -3.0)))
+        mWorldMatrix = glms_mat4_identity()
+        mProjectionMatrix = glms_perspective(glm_rad(45), 4/3, 0.1, 100)
+        mVPMatrix = glms_mat4_mul(glms_mat4_mul(mProjectionMatrix, mViewMatrix), mModelMatrix)
+
+        //Generate Voxel Data
+        /*mVoxelMesh = VoxelMesh(x: NUM_VOXELS, y: NUM_VOXELS, z: NUM_VOXELS, s: Float(1/NUM_VOXELS), Voxels: Array(repeating: Voxel(color: vec3(1.0, 1.0, 1.0)), count: NUM_VOXELS*NUM_VOXELS*NUM_VOXELS))
+        
+        for i in 0..<mVoxelMesh.x {
+            for j in 0..<mVoxelMesh.y {
+                for k in 0..<mVoxelMesh.z {
+                    let ind = i*NUM_VOXELS*NUM_VOXELS + j*NUM_VOXELS + k
+                    let voxelPos = glms_vec3_scale(vec3s(raw: (Float(i), Float(j), Float(k))), mVoxelMesh.s)
+                    let model = glms_scale_uni(glms_translate(glms_mat4_identity(), voxelPos), mVoxelMesh.s)
+                    instanceUniforms[i].model = model.raw;
+                    instanceUniforms[i].color = vec3(1.0, 1.0, 1.0);
+                }
+            }
+        }*/
+        
+        //Build Pipeline
         guard let cq = mView.device?.makeCommandQueue() else
         {
             fatalError("Could not create command queue")
@@ -70,14 +152,13 @@ class Renderer : NSObject
     {
         let commandBuffer  = mCommandQueue.makeCommandBuffer()!
         let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: mView.currentRenderPassDescriptor!)
-        commandEncoder?.setViewport(MTLViewport(originX: 0.0, originY: 0.0, width: Double(mViewportSize.x), height: Double(mViewportSize.y), znear: 0.0, zfar: 1.0))
-        
         commandEncoder?.setRenderPipelineState(mPipeline)
-        commandEncoder?.setVertexBytes(VERTEX_DATA, length: VERTEX_DATA.count * MemoryLayout.size(ofValue: VERTEX_DATA[0]), index: 0)
-        commandEncoder?.setVertexBytes(&mViewportSize, length: MemoryLayout<vector_uint2>.size, index: 1)
-        commandEncoder?.drawPrimitives(type: .triangle,
+        commandEncoder?.setVertexBytes(Cube, length: Cube.count * MemoryLayout<Vertex>.size, index: 0)
+        commandEncoder?.setVertexBytes(&(mVPMatrix.raw), length: 64, index: 1)//--> 16 alignment
+        //commandEncoder?.setVertexBytes(instanceUniforms, length: instanceUniforms.count * MemoryLayout<instanceUniform>.size, index: 2)
+        commandEncoder?.drawPrimitives(type: .triangleStrip,
                                        vertexStart: 0,
-                                       vertexCount: 3)
+                                       vertexCount: 18)
         commandEncoder?.endEncoding()
 
         commandBuffer.present(mView.currentDrawable!)
