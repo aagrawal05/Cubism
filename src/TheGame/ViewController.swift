@@ -38,14 +38,16 @@ class ViewController: NSViewController {
             switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
             case [.shift]:
                 print("shift key is pressed")
+                deg2+=10.0*Float(Double.pi/180);
             case [.control]:
                 print("control key is pressed")
-                deg+=1.0;
+                deg+=20.0*Float(Double.pi/180);
             case [.option] :
                 print("option key is pressed")
+                deg2-=10.0*Float(Double.pi/180);
             case [.command]:
                 print("Command key is pressed")
-                deg-=1.0;
+                deg-=20.0*Float(Double.pi/180);
             case [.control, .shift]:
                 print("control-shift keys are pressed")
             case [.option, .shift]:
