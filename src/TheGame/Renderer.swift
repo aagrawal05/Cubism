@@ -12,6 +12,7 @@ let NUM_VOXELS = 100
 
 struct instanceUniform {
     var model: mat4
+    var color: vec4
 }
 
 struct Vertex {
@@ -76,7 +77,7 @@ let Cube: [Vertex] =
     Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 0, 1, 1)),
 ]
 
-var instanceUniforms: [instanceUniform] = Array(repeating: instanceUniform(model: glms_mat4_identity().raw), count: NUM_VOXELS*NUM_VOXELS*NUM_VOXELS)
+var instanceUniforms: [instanceUniform] = Array(repeating: instanceUniform(model: glms_mat4_identity().raw, color: vec4(1, 1, 1, 1)), count: NUM_VOXELS*NUM_VOXELS*NUM_VOXELS)
 
 class Renderer : NSObject
 {
@@ -115,7 +116,8 @@ class Renderer : NSObject
                     let ind = i*NUM_VOXELS*NUM_VOXELS + j*NUM_VOXELS + k
                     let voxelPos = glms_vec3_scale(vec3s(raw: (Float(i), Float(j), Float(k))), mVoxelMesh.s)
                     let model = glms_scale_uni(glms_translate(glms_mat4_identity(), voxelPos), mVoxelMesh.s)
-                    instanceUniforms[ind].model = model.raw;
+                    instanceUniforms[ind].model = model.raw
+                    instanceUniforms[ind].color = vec4((Float(arc4random()) / Float(UINT32_MAX)), (Float(arc4random()) / Float(UINT32_MAX)), (Float(arc4random()) / Float(UINT32_MAX)), 1)
                 }
             }
         }
@@ -180,7 +182,7 @@ class Renderer : NSObject
         let commandBuffer  = mCommandQueue.makeCommandBuffer()!
         
         let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: mView.currentRenderPassDescriptor!)
-        
+
         commandEncoder?.setDepthStencilState(mDepth)
         commandEncoder?.setRenderPipelineState(mPipeline)
         commandEncoder?.setVertexBytes(Cube, length: Cube.count * MemoryLayout<Vertex>.size, index: 0)

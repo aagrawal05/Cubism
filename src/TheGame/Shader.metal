@@ -19,6 +19,7 @@ typedef struct {
 struct instanceUniform
 {
     float4x4 modelMatrix;
+    packed_float4 color;
 };
 
 // Vertex shader outputs and fragment shader inputs
@@ -46,7 +47,7 @@ vertexShader(uint vertexID [[vertex_id]],
     RasterizerData out;
     out.position = vpMatrix * instanceUniforms[instanceID].modelMatrix * float4(vertices[vertexID].position, 1.0);
     // Pass the input color directly to the rasterizer.
-    out.color = vertices[vertexID].color; //float4(instanceUniforms[instanceID].color, 1.0);
+    out.color = instanceUniforms[instanceID].color; //float4(instanceUniforms[instanceID].color, 1.0);
 
     return out;
 }
