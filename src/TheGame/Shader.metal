@@ -13,7 +13,6 @@ using namespace metal;
 // Include header shared between this Metal shader code and C code executing Metal API commands.
 typedef struct {
     packed_float3 position;
-    packed_float4 color;
 } Vertex;
 
 struct instanceUniform
@@ -47,7 +46,7 @@ vertexShader(uint vertexID [[vertex_id]],
     RasterizerData out;
     out.position = vpMatrix * instanceUniforms[instanceID].modelMatrix * float4(vertices[vertexID].position, 1.0);
     // Pass the input color directly to the rasterizer.
-    out.color = instanceUniforms[instanceID].color; //float4(instanceUniforms[instanceID].color, 1.0);
+    out.color = instanceUniforms[instanceID].color;
 
     return out;
 }

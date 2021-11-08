@@ -18,7 +18,6 @@ struct instanceUniform {
 struct Vertex {
     var position: vec3
     //TODO --> Normal
-    var color: vec4
 }
 
 struct Voxel {
@@ -34,47 +33,47 @@ struct VoxelMesh {
 
 let Cube: [Vertex] =
 [
-    Vertex(position: vec3(-0.5, -0.5, -0.5), color: vec4(0, 1, 1, 1)), //Bottom
-    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 0, 1, 1)),
-    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(0.5, -0.5, -0.5), color: vec4(0, 1, 1, 1)),
-    Vertex(position: vec3(-0.5, -0.5, -0.5), color: vec4(1, 0, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, -0.5)), //Bottom
+    Vertex(position: vec3(-0.5, -0.5, 0.5)),
+    Vertex(position: vec3(0.5, -0.5, 0.5)),
+    Vertex(position: vec3(0.5, -0.5, 0.5)),
+    Vertex(position: vec3(0.5, -0.5, -0.5)),
+    Vertex(position: vec3(-0.5, -0.5, -0.5)),
     
-    Vertex(position: vec3(0.5, -0.5, -0.5), color: vec4(0, 1, 1, 1)), //Back
-    Vertex(position: vec3(0.5, 0.5, -0.5), color: vec4(1, 0, 1, 1)),
-    Vertex(position: vec3(-0.5, 0.5, -0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(-0.5, 0.5, -0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(-0.5, -0.5, -0.5), color: vec4(0, 1, 1, 1)),
-    Vertex(position: vec3(0.5, -0.5, -0.5), color: vec4(1, 0, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, -0.5)), //Back
+    Vertex(position: vec3(0.5, 0.5, -0.5)),
+    Vertex(position: vec3(-0.5, 0.5, -0.5)),
+    Vertex(position: vec3(-0.5, 0.5, -0.5)),
+    Vertex(position: vec3(-0.5, -0.5, -0.5)),
+    Vertex(position: vec3(0.5, -0.5, -0.5)),
     
-    Vertex(position: vec3(-0.5, -0.5, -0.5), color: vec4(0, 1, 1, 1)), //Left
-    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 0, 1, 1)),
-    Vertex(position: vec3(-0.5, 0.5, 0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(-0.5, 0.5, 0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(-0.5, 0.5, -0.5), color: vec4(0, 1, 1, 1)),
-    Vertex(position: vec3(-0.5, -0.5, -0.5), color: vec4(1, 0, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, -0.5)), //Left
+    Vertex(position: vec3(-0.5, -0.5, 0.5)),
+    Vertex(position: vec3(-0.5, 0.5, 0.5)),
+    Vertex(position: vec3(-0.5, 0.5, 0.5)),
+    Vertex(position: vec3(-0.5, 0.5, -0.5)),
+    Vertex(position: vec3(-0.5, -0.5, -0.5)),
     
-    Vertex(position: vec3(-0.5, 0.5, 0.5), color: vec4(0, 1, 1, 1)), //Top
-    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(1, 0, 1, 1)),
-    Vertex(position: vec3(0.5, 0.5, -0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(0.5, 0.5, -0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(-0.5, 0.5, -0.5), color: vec4(0, 1, 1, 1)),
-    Vertex(position: vec3(-0.5, 0.5, 0.5), color: vec4(1, 0, 1, 1)),
+    Vertex(position: vec3(-0.5, 0.5, 0.5)), //Top
+    Vertex(position: vec3(0.5, 0.5, 0.5)),
+    Vertex(position: vec3(0.5, 0.5, -0.5)),
+    Vertex(position: vec3(0.5, 0.5, -0.5)),
+    Vertex(position: vec3(-0.5, 0.5, -0.5)),
+    Vertex(position: vec3(-0.5, 0.5, 0.5)),
     
-    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(0, 1, 1, 1)), //Front
-    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 0, 1, 1)),
-    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(-0.5, 0.5, 0.5), color: vec4(0, 1, 1, 1)),
-    Vertex(position: vec3(-0.5, -0.5, 0.5), color: vec4(1, 0, 1, 1)),
+    Vertex(position: vec3(-0.5, -0.5, 0.5)), //Front
+    Vertex(position: vec3(0.5, -0.5, 0.5)),
+    Vertex(position: vec3(0.5, 0.5, 0.5)),
+    Vertex(position: vec3(0.5, 0.5, 0.5)),
+    Vertex(position: vec3(-0.5, 0.5, 0.5)),
+    Vertex(position: vec3(-0.5, -0.5, 0.5)),
     
-    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(0, 1, 1, 1)), //Right
-    Vertex(position: vec3(0.5, -0.5, -0.5), color: vec4(1, 0, 1, 1)),
-    Vertex(position: vec3(0.5, 0.5, -0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(0.5, 0.5, -0.5), color: vec4(1, 1, 0, 1)),
-    Vertex(position: vec3(0.5, 0.5, 0.5), color: vec4(0, 1, 1, 1)),
-    Vertex(position: vec3(0.5, -0.5, 0.5), color: vec4(1, 0, 1, 1)),
+    Vertex(position: vec3(0.5, -0.5, 0.5)), //Right
+    Vertex(position: vec3(0.5, -0.5, -0.5)),
+    Vertex(position: vec3(0.5, 0.5, -0.5)),
+    Vertex(position: vec3(0.5, 0.5, -0.5)),
+    Vertex(position: vec3(0.5, 0.5, 0.5)),
+    Vertex(position: vec3(0.5, -0.5, 0.5)),
 ]
 
 var instanceUniforms: [instanceUniform] = Array(repeating: instanceUniform(model: glms_mat4_identity().raw, color: vec4(1, 1, 1, 1)), count: NUM_VOXELS*NUM_VOXELS*NUM_VOXELS)
